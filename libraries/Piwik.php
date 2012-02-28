@@ -65,7 +65,7 @@ class Piwik
      */
     public function downloads($period = 'day', $cnt = 10)
     {
-        $url = $this->piwik_url.'/index.php?module=API&method=VActions.getDownloads&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
+        $url = $this->piwik_url.'/index.php?module=API&method=Actions.getDownloads&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
         return $this->_get_decoded($url);
     }
     
@@ -194,6 +194,21 @@ class Piwik
     public function page_titles($period = 'day', $cnt = 10)
     {
         $url = $this->piwik_url.'/index.php?module=API&method=Actions.getPageTitles&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
+        return $this->_get_decoded($url);
+    }
+
+    /**
+     * search_engines
+     * Get search engine referer information for the specific time period
+     *
+     * @access  public
+     * @param   string  $period   Time interval ('day', 'month', or 'year')
+     * @param   int     $cnt      Gets the number of $period from the current period to what $cnt is set to (i.e. last 10 days by default) 
+     * @return  array
+     */
+    public function search_engines($period = 'day', $cnt = 10)
+    {
+        $url = $this->piwik_url.'/index.php?module=API&method=Referers.getSearchEngines&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
         return $this->_get_decoded($url);
     }
 
