@@ -47,17 +47,19 @@ Usage
 	// Load Libary
 	$this->load->library('piwik');
 
+	// Get Actions for Today
+	$data['actions'] = $this->piwik->actions('day', 'today');
 	// Get Actions for Last 10 Days
-    $data['actions'] = $this->piwik->actions('day', 10);
+  $data['actions'] = $this->piwik->actions('day', 10);
 	// Get Actions for Last 6 months
 	$data['actions'] = $this->piwik->actions('month', 6);
 
-    // Get 10 Last Visitors
-	$data['visitors'] = $this->piwik->last_visits(10);
+  // Get Today's 20 Last Visitors
+	$data['visitors'] = $this->piwik->last_visits('today', 20);
 
-    // Get Last 10 Visitors Formatted 
-    // Eliminates needs from parsing whats returned from the last_visits function, does GeoIP lookup if enabled
-	$data['visitors'] = $this->piwik->last_visits_parsed(10);
+  // Get Today's Last 20 Visitors Formatted 
+  // Eliminates needs from parsing whats returned from the last_visits function, does GeoIP lookup if enabled
+	$data['visitors'] = $this->piwik->last_visits_parsed('today', 20);
 
 	// If GeoIP enabled, and you want to get geoip information, pass it an IP Address
 	$geoip = $this->piwik->get_geoip('127.0.0.1');

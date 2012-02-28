@@ -45,12 +45,13 @@ class Piwik
      *
      * @access  public
      * @param   string  $period   Time interval ('day', 'month', or 'year')
-     * @param   int     $cnt      Gets the number of $period from the current period to what $cnt is set to (i.e. last 10 days by default) 
+     * @param   int     $date     Gets the number of $period from the current period to what $day is set to (i.e. last 10 days by default or 'today') 
      * @return  array
      */
-    public function actions($period = 'day', $cnt = 10)
+    public function actions($period = 'day', $date = 10)
     {
-        $url = $this->piwik_url.'/index.php?module=API&method=VisitsSummary.getActions&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
+        $interval = ($date == 'today' ? 'today' : 'last'.$date );
+        $url = $this->piwik_url.'/index.php?module=API&method=VisitsSummary.getActions&idSite='.$this->site_id.'&period='.$period.'&date='.$interval.'&format=JSON&token_auth='.$this->token;
         return $this->_get_decoded($url);
     }
 
@@ -60,12 +61,13 @@ class Piwik
      *
      * @access  public
      * @param   string  $period   Time interval ('day', 'month', or 'year')
-     * @param   int     $cnt      Gets the number of $period from the current period to what $cnt is set to (i.e. last 10 days by default) 
+     * @param   int     $date     Gets the number of $period from the current period to what $day is set to (i.e. last 10 days by default or 'today') 
      * @return  array
      */
-    public function downloads($period = 'day', $cnt = 10)
+    public function downloads($period = 'day', $date = 10)
     {
-        $url = $this->piwik_url.'/index.php?module=API&method=Actions.getDownloads&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
+        $interval = ($date == 'today' ? 'today' : 'last'.$date );
+        $url = $this->piwik_url.'/index.php?module=API&method=Actions.getDownloads&idSite='.$this->site_id.'&period='.$period.'&date='.$interval.'&format=JSON&token_auth='.$this->token;
         return $this->_get_decoded($url);
     }
     
@@ -75,12 +77,13 @@ class Piwik
      *
      * @access  public
      * @param   string  $period   Time interval ('day', 'month', or 'year')
-     * @param   int     $cnt      Gets the number of $period from the current period to what $cnt is set to (i.e. last 10 days by default) 
+     * @param   int     $date     Gets the number of $period from the current period to what $day is set to (i.e. last 10 days by default or 'today') 
      * @return  array
      */
-    public function keywords($period = 'day', $cnt = 10)
+    public function keywords($period = 'day', $date = 10)
     {
-        $url = $this->piwik_url.'/index.php?module=API&method=Referers.getKeywords&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
+        $interval = ($date == 'today' ? 'today' : 'last'.$date );
+        $url = $this->piwik_url.'/index.php?module=API&method=Referers.getKeywords&idSite='.$this->site_id.'&period='.$period.'&date='.$interval.'&format=JSON&token_auth='.$this->token;
         return $this->_get_decoded($url);
     }
     
@@ -89,12 +92,14 @@ class Piwik
      * Get information about last 10 visits (ip, time, country, pages, etc.)
      *
      * @access  public
+     * @param   int     $date     Gets the number of $period from the current period to what $day is set to (i.e. last 10 days by default or 'today') 
      * @param   int     $cnt      Limit the number of visits returned by $cnt
      * @return  array
      */
-    public function last_visits($cnt = 10)
+    public function last_visits($date = 10, $cnt = 10)
     {
-        $url = $this->piwik_url.'/index.php?module=API&method=Live.getLastVisitsDetails&idSite='.$this->site_id.'&period=day&date=today&filter_limit='.$cnt.'&format=JSON&token_auth='.$this->token;
+        $interval = ($date == 'today' ? 'today' : 'last'.$date );
+        $url = $this->piwik_url.'/index.php?module=API&method=Live.getLastVisitsDetails&idSite='.$this->site_id.'&period=day&date='.$interval.'&filter_limit='.$cnt.'&format=JSON&token_auth='.$this->token;
         return $this->_get_decoded($url);
     }
     
@@ -103,12 +108,14 @@ class Piwik
      * Get information about last 10 visits (ip, time, country, pages, etc.) in a formatted array with GeoIP information if enabled
      *
      * @access  public
+     * @param   int     $date     Gets the number of $period from the current period to what $day is set to (i.e. last 10 days by default or 'today') 
      * @param   int     $cnt      Limit the number of visits returned by $cnt
      * @return  array
      */
-    public function last_visits_parsed($cnt = 10)
+    public function last_visits_parsed($date = 10, $cnt = 10)
     {
-        $url = $this->piwik_url.'/index.php?module=API&method=Live.getLastVisitsDetails&idSite='.$this->site_id.'&period=day&date=today&filter_limit='.$cnt.'&format=JSON&token_auth='.$this->token;
+        $interval = ($date == 'today' ? 'today' : 'last'.$date );
+        $url = $this->piwik_url.'/index.php?module=API&method=Live.getLastVisitsDetails&idSite='.$this->site_id.'&period=day&date='.$interval.'&filter_limit='.$cnt.'&format=JSON&token_auth='.$this->token;
         $visits = $this->_get_decoded($url);
         
         $data = array();
@@ -173,12 +180,13 @@ class Piwik
      *
      * @access  public
      * @param   string  $period   Time interval ('day', 'month', or 'year')
-     * @param   int     $cnt      Gets the number of $period from the current period to what $cnt is set to (i.e. last 10 days by default) 
+     * @param   int     $date     Gets the number of $period from the current period to what $day is set to (i.e. last 10 days by default or 'today') 
      * @return  array
      */
-    public function outlinks($period = 'day', $cnt = 10)
+    public function outlinks($period = 'day', $date = 10)
     {
-        $url = $this->piwik_url.'/index.php?module=API&method=Actions.getOutlinks&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
+        $interval = ($date == 'today' ? 'today' : 'last'.$date );
+        $url = $this->piwik_url.'/index.php?module=API&method=Actions.getOutlinks&idSite='.$this->site_id.'&period='.$period.'&date='.$interval.'&format=JSON&token_auth='.$this->token;
         return $this->_get_decoded($url);
     }
     
@@ -188,12 +196,13 @@ class Piwik
      *
      * @access  public
      * @param   string  $period   Time interval ('day', 'month', or 'year')
-     * @param   int     $cnt      Gets the number of $period from the current period to what $cnt is set to (i.e. last 10 days by default) 
+     * @param   int     $date     Gets the number of $period from the current period to what $day is set to (i.e. last 10 days by default or 'today') 
      * @return  array
      */
-    public function page_titles($period = 'day', $cnt = 10)
+    public function page_titles($period = 'day', $date = 10)
     {
-        $url = $this->piwik_url.'/index.php?module=API&method=Actions.getPageTitles&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
+        $interval = ($date == 'today' ? 'today' : 'last'.$date );
+        $url = $this->piwik_url.'/index.php?module=API&method=Actions.getPageTitles&idSite='.$this->site_id.'&period='.$period.'&date='.$interval.'&format=JSON&token_auth='.$this->token;
         return $this->_get_decoded($url);
     }
 
@@ -203,12 +212,13 @@ class Piwik
      *
      * @access  public
      * @param   string  $period   Time interval ('day', 'month', or 'year')
-     * @param   int     $cnt      Gets the number of $period from the current period to what $cnt is set to (i.e. last 10 days by default) 
+     * @param   int     $date     Gets the number of $period from the current period to what $day is set to (i.e. last 10 days by default or 'today') 
      * @return  array
      */
-    public function search_engines($period = 'day', $cnt = 10)
+    public function search_engines($period = 'day', $date = 10)
     {
-        $url = $this->piwik_url.'/index.php?module=API&method=Referers.getSearchEngines&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
+        $interval = ($date == 'today' ? 'today' : 'last'.$date );
+        $url = $this->piwik_url.'/index.php?module=API&method=Referers.getSearchEngines&idSite='.$this->site_id.'&period='.$period.'&date='.$interval.'&format=JSON&token_auth='.$this->token;
         return $this->_get_decoded($url);
     }
 
@@ -218,12 +228,13 @@ class Piwik
      *
      * @access  public
      * @param   string  $period   Time interval ('day', 'month', or 'year')
-     * @param   int     $cnt      Gets the number of $period from the current period to what $cnt is set to (i.e. last 10 days by default) 
+     * @param   int     $date     Gets the number of $period from the current period to what $day is set to (i.e. last 10 days by default or 'today') 
      * @return  array
      */
-    public function unique_visitors($period = 'day', $cnt = 10)
+    public function unique_visitors($period = 'day', $date = 10)
     {
-        $url = $this->piwik_url.'/index.php?module=API&method=VisitsSummary.getUniqueVisitors&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
+        $interval = ($date == 'today' ? 'today' : 'last'.$date );
+        $url = $this->piwik_url.'/index.php?module=API&method=VisitsSummary.getUniqueVisitors&idSite='.$this->site_id.'&period='.$period.'&date='.$interval.'&format=JSON&token_auth='.$this->token;
         return $this->_get_decoded($url);
     }
 
@@ -233,12 +244,13 @@ class Piwik
      *
      * @access  public
      * @param   string  $period   Time interval ('day', 'month', or 'year')
-     * @param   int     $cnt      Gets the number of $period from the current period to what $cnt is set to (i.e. last 10 days by default) 
+     * @param   int     $date     Gets the number of $period from the current period to what $day is set to (i.e. last 10 days by default or 'today') 
      * @return  array
      */
-    public function visits($period = 'day', $cnt = 10)
+    public function visits($period = 'day', $date = 10)
     {
-        $url = $this->piwik_url.'/index.php?module=API&method=VisitsSummary.getVisits&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
+        $interval = ($date == 'today' ? 'today' : 'last'.$date );
+        $url = $this->piwik_url.'/index.php?module=API&method=VisitsSummary.getVisits&idSite='.$this->site_id.'&period='.$period.'&date='.$interval.'&format=JSON&token_auth='.$this->token;
         return $this->_get_decoded($url);
     }
 
@@ -248,12 +260,13 @@ class Piwik
      *
      * @access  public
      * @param   string  $period   Time interval ('day', 'month', or 'year')
-     * @param   int     $cnt      Gets the number of $period from the current period to what $cnt is set to (i.e. last 10 days by default) 
+     * @param   int     $date     Gets the number of $period from the current period to what $day is set to (i.e. last 10 days by default or 'today') 
      * @return  array
      */
-    public function websites($period = 'day', $cnt = 10)
+    public function websites($period = 'day', $date = 10)
     {
-        $url = $this->piwik_url.'/index.php?module=API&method=Referers.getWebsites&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
+        $interval = ($date == 'today' ? 'today' : 'last'.$date );
+        $url = $this->piwik_url.'/index.php?module=API&method=Referers.getWebsites&idSite='.$this->site_id.'&period='.$period.'&date='.$interval.'&format=JSON&token_auth='.$this->token;
         return $this->_get_decoded($url);
     }
 
