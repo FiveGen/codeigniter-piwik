@@ -8,7 +8,7 @@
  * @package       CodeIgniter
  * @subpackage    Libraries
  * @category      Libraries
- * @author        Bryce Johnston < bryce@wingdspur.com >
+ * @author        Bryce Johnston < bryce@beamleaf.com >
  * @license       MIT
  */
 
@@ -48,9 +48,24 @@ class Piwik
      * @param   int     $cnt      Gets the number of $period from the current period to what $cnt is set to (i.e. last 10 days by default) 
      * @return  array
      */
-    public function actions($period = 'day', $cnt = 10)
+    public function downloads($period = 'day', $cnt = 10)
     {
         $url = $this->piwik_url.'/index.php?module=API&method=VisitsSummary.getActions&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
+        return $this->_get_decoded($url);
+    }
+
+    /**
+     * downloads
+     * Get file downloads for the specific time period
+     *
+     * @access  public
+     * @param   string  $period   Time interval ('day', 'month', or 'year')
+     * @param   int     $cnt      Gets the number of $period from the current period to what $cnt is set to (i.e. last 10 days by default) 
+     * @return  array
+     */
+    public function actions($period = 'day', $cnt = 10)
+    {
+        $url = $this->piwik_url.'/index.php?module=API&method=VActions.getDownloads&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
         return $this->_get_decoded($url);
     }
     
@@ -150,6 +165,21 @@ class Piwik
         }
         ($this->geoip_on ? $this->_geoip_close() : 0);
         return $data;
+    }
+
+    /**
+     * actions
+     * Get outlinks for the specific time period
+     *
+     * @access  public
+     * @param   string  $period   Time interval ('day', 'month', or 'year')
+     * @param   int     $cnt      Gets the number of $period from the current period to what $cnt is set to (i.e. last 10 days by default) 
+     * @return  array
+     */
+    public function outlinks($period = 'day', $cnt = 10)
+    {
+        $url = $this->piwik_url.'/index.php?module=API&method=Actions.getOutlinks&idSite='.$this->site_id.'&period='.$period.'&date=last'.$cnt.'&format=JSON&token_auth='.$this->token;
+        return $this->_get_decoded($url);
     }
     
     /**
