@@ -20,10 +20,10 @@ class PiwikStats extends CI_Controller {
     public function index()
     {
         $visits = $this->piwik->actions('day', 'today');
-        $unique = $this->piwik->unique_visitors(array('day', 10), 3600);
+        $unique = $this->piwik->unique_visitors('day', 10);
         // Recommend using sometype of caching for this, example:
-        // $visits = $this->cache->library('piwik', 'actions', array('day', 10), 3600);
-        // $unique = $this->cache->library('piwik', 'unique_visitors', array('day', 10), 3600);
+        // $visits = $this->piwik->actions('day', 10);
+        // $unique = $this->piwik->unique_visitors('day', 10);
         
         foreach($visits as $date => $visit)
         { 
@@ -45,43 +45,43 @@ class PiwikStats extends CI_Controller {
 
     public function top_pages()
     {
-        $data['page_titles'] = $this->cache->library('piwik', 'page_titles', array('day', 'today'), 3600);
+        $data['page_titles'] = $this->piwik->page_titles('day', 'today');
         $this->load->view('top_pages', $data);
     }
 
     public function last_visitors()
     {
-        $data['last_visits'] = $this->cache->library('piwik', 'last_visits_parsed', array('today', 20), 3600);
+        $data['last_visits'] = $this->piwik->last_visits_parsed('today', 20);
         $this->load->view('last_visitors', $data);
     }
 
     public function downloads()
     {
-        $data['downloads'] = $this->cache->library('piwik', 'downloads', array('day', 10), 3600);
+        $data['downloads'] = $this->piwik->downloads('day', 10);
         $this->load->view('downloads', $data);
     }
 
     public function outlinks()
     {
-        $data['outlinks'] = $this->cache->library('piwik', 'outlinks', array('day', 10), 3600);
+        $data['outlinks'] = $this->piwik->outlinks('day', 10);
         $this->load->view('outlinks', $data);
     }
 
     public function keywords()
     {
-        $data['keywords'] = $this->cache->library('piwik', 'keywords', array('day', 'today'), 3600);
+        $data['keywords'] = $this->piwik->keywords('day', 'today');
         $this->load->view('keywords', $data);
     }
 
     public function refering_sites()
     {
-        $data['websites'] = $this->cache->library('piwik', 'websites', array('day', 'today'), 3600);
+        $data['websites'] = $this->piwik->websites('day', 'today');
         $this->load->view('refering_sites', $data);
     }
 
     public function search_engines()
     {
-        $data['search_engines'] = $this->cache->library('piwik', 'search_engines', array('day', 10), 3600);
+        $data['search_engines'] = $this->piwik->search_engines('day', 10);
         $this->load->view('search_engines', $data);
     }
     
