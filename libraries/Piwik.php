@@ -8,7 +8,7 @@
  * @package       CodeIgniter
  * @subpackage    Libraries
  * @category      Libraries
- * @author        Bryce Johnston < bryce@beamleaf.com >
+ * @author        Bryce Johnston < bryce@wingdspur.com >
  * @license       MIT
  */
 
@@ -33,9 +33,7 @@ class Piwik
         
         if($this->geoip_on)
         {
-            $this->_ci->load->helper('geoip');
             $this->_ci->load->helper('geoipcity');
-            $this->_ci->load->helper('geoipregionvars');
         }
     }
     

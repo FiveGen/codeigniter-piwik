@@ -28,16 +28,16 @@ define("GEOIP_MEMORY_CACHE", 1);
 define("GEOIP_SHARED_MEMORY", 2);
 define("STRUCTURE_INFO_MAX_SIZE", 20);
 define("DATABASE_INFO_MAX_SIZE", 100);
-define("GEOIP_COUNTRY_EDITION", 106);
-define("GEOIP_PROXY_EDITION", 8);
-define("GEOIP_ASNUM_EDITION", 9);
-define("GEOIP_NETSPEED_EDITION", 10);
-define("GEOIP_REGION_EDITION_REV0", 112);
-define("GEOIP_REGION_EDITION_REV1", 3);
-define("GEOIP_CITY_EDITION_REV0", 111);
-define("GEOIP_CITY_EDITION_REV1", 2);
-define("GEOIP_ORG_EDITION", 110);
-define("GEOIP_ISP_EDITION", 4);
+if(!defined("GEOIP_COUNTRY_EDITION")) { define("GEOIP_COUNTRY_EDITION", 106); }
+if(!defined("GEOIP_PROXY_EDITION")) { define("GEOIP_PROXY_EDITION", 8); }
+if(!defined("GEOIP_ASNUM_EDITION")) { define("GEOIP_ASNUM_EDITION", 9); }
+if(!defined("GEOIP_NETSPEED_EDITION")) { define("GEOIP_NETSPEED_EDITION", 10); }
+if(!defined("GEOIP_REGION_EDITION_REV0")) { define("GEOIP_REGION_EDITION_REV0", 112); }
+if(!defined("GEOIP_REGION_EDITION_REV1")) { define("GEOIP_REGION_EDITION_REV1", 3); }
+if(!defined("GEOIP_CITY_EDITION_REV0")) { define("GEOIP_CITY_EDITION_REV0", 111); }
+if(!defined("GEOIP_CITY_EDITION_REV1")) { define("GEOIP_CITY_EDITION_REV1", 2); }
+if(!defined("GEOIP_ORG_EDITION")) { define("GEOIP_ORG_EDITION", 110); }
+if(!defined("GEOIP_ISP_EDITION")) { define("GEOIP_ISP_EDITION", 4); }
 define("SEGMENT_RECORD_LENGTH", 3);
 define("STANDARD_RECORD_LENGTH", 3);
 define("ORG_RECORD_LENGTH", 4);
@@ -48,10 +48,10 @@ define("US_OFFSET", 1);
 define("CANADA_OFFSET", 677);
 define("WORLD_OFFSET", 1353);
 define("FIPS_RANGE", 360);
-define("GEOIP_UNKNOWN_SPEED", 0);
-define("GEOIP_DIALUP_SPEED", 1);
-define("GEOIP_CABLEDSL_SPEED", 2);
-define("GEOIP_CORPORATE_SPEED", 3);
+if(!defined("GEOIP_UNKNOWN_SPEED")) { define("GEOIP_UNKNOWN_SPEED", 0); }
+if(!defined("GEOIP_DIALUP_SPEED")) { define("GEOIP_DIALUP_SPEED", 1); }
+if(!defined("GEOIP_CABLEDSL_SPEED")) { define("GEOIP_CABLEDSL_SPEED", 2); }
+if(!defined("GEOIP_CORPORATE_SPEED")) { define("GEOIP_CORPORATE_SPEED", 3); }
 
 class GeoIP {
     var $flags;
@@ -367,20 +367,24 @@ function geoip_country_id_by_name($gi, $name) {
   return geoip_country_id_by_addr($gi, $addr);
 }
 
-function geoip_country_code_by_name($gi, $name) {
-  $country_id = geoip_country_id_by_name($gi,$name);
-  if ($country_id !== false) {
-        return $gi->GEOIP_COUNTRY_CODES[$country_id];
+if (!function_exists('geoip_country_code_by_name')) {
+  function geoip_country_code_by_name($gi, $name) {
+    $country_id = geoip_country_id_by_name($gi,$name);
+    if ($country_id !== false) {
+          return $gi->GEOIP_COUNTRY_CODES[$country_id];
+    }
+    return false;
   }
-  return false;
 }
 
-function geoip_country_name_by_name($gi, $name) {
-  $country_id = geoip_country_id_by_name($gi,$name);
-  if ($country_id !== false) {
-        return $gi->GEOIP_COUNTRY_NAMES[$country_id];
+if (!function_exists('geoip_country_name_by_name')) {
+  function geoip_country_name_by_name($gi, $name) {
+    $country_id = geoip_country_id_by_name($gi,$name);
+    if ($country_id !== false) {
+          return $gi->GEOIP_COUNTRY_NAMES[$country_id];
+    }
+    return false;
   }
-  return false;
 }
 
 function geoip_country_id_by_addr($gi, $addr) {
