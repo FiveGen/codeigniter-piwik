@@ -7,7 +7,7 @@ CodeIgniter Library for retrieving stats from Piwik Open Source Analytics. Also 
 Requirements
 ------------
 
-1. CodeIgniter 1.7.2 - 2.1.0  
+1. CodeIgniter 1.7.2 - 2.1.3  
 2. Piwik Install  
 3. For GeoIP capabilities: MaxMind GeoLiteCity  
 
@@ -76,6 +76,10 @@ Usage
 	</body>
 	</html>
 
+
+	// --- Controller Usage ------------------------------------------------------------ //
+
+	// See the included example controller
 
 To-do
 -----
