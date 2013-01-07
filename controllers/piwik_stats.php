@@ -19,7 +19,7 @@ class PiwikStats extends CI_Controller {
     // Get unique, visits stats to display in a flot graph.
     public function index()
     {
-        $visits = $this->piwik->actions('day', 'today');
+        $visits = $this->piwik->actions('day', 10);
         $unique = $this->piwik->unique_visitors('day', 10);
         // Recommend using sometype of caching for this, example:
         // $visits = $this->piwik->actions('day', 10);
